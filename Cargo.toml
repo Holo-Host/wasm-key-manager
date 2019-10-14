@@ -1,0 +1,13 @@
+[package]
+name = "hclient2"
+version = "0.0.0"
+authors = ["yegortimoshenko@transumption.com"]
+edition = "2018"
+repository = "https://github.com/Holo-Host/hclient2"
+
+[dependencies]
+wasm-bindgen = { version = "0.2.51", features = ["serde-serialize"] }
+wasm-bindgen-cli = "0.2.51"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
