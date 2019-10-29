@@ -173,7 +173,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "chaperone-key-manager"
-version = "0.0.0"
+version = "0.0.2"
 dependencies = [
  "argon2min 0.3.0 (git+https://github.com/Holo-Host/argon2min?branch=2019-10-13-holo-config)",
  "ed25519-dalek 1.0.0-pre.2 (registry+https://github.com/rust-lang/crates.io-index)",
