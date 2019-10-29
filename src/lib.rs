@@ -50,7 +50,13 @@ impl KeyManager {
 
     #[wasm_bindgen]
     pub fn sign(&self, message: &[u8]) -> Vec<u8> {
-        let signature = self.0.sign(&message);
+        let signature = self.0.sign(message);
         signature.to_bytes()[..].into()
+    }
+
+    #[wasm_bindgen]
+    pub fn verify(&self, message: &[u8], signature_bytes: &[u8]) -> Result<bool, JsValue> {
+        let signature = Signature::from_bytes(signature_bytes).map_err(into_js_error)?;
+        Ok(self.0.verify(message, &signature).is_ok())
     }
 }
