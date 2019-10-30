@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 set -e
 
 wasm-pack build --scope holo-host

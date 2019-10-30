@@ -7,12 +7,13 @@ let
 in
 
 {
-  hclient2 = buildRustPackage rustPlatform rec {
-    name = "hclient2";
+  chaperone-key-manager = buildRustPackage rustPlatform rec {
+    name = "chaperone-key-manager";
     src = gitignoreSource ./.;
     cargoDir = ".";
 
     nativeBuildInputs = with buildPackages; [
+      jq
       nodejs-12_x
       pkgconfig
       (wasm-pack.override { inherit rustPlatform; })
@@ -21,16 +22,11 @@ in
     buildInputs = [ openssl ];
 
     buildPhase = ''
-      cp -r ${npmToNix { src = "${src}/${cargoDir}"; }} node_modules
-      chmod -R +w node_modules
-      chmod +x node_modules/.bin/webpack
-      patchShebangs node_modules
-
-      npm run build
+      bash build.sh
     '';
 
     installPhase = ''
-      mv target/webpack $out
+      mv pkg $out
     '';
 
     doCheck = false;
