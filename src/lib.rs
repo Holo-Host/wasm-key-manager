@@ -1,11 +1,18 @@
 use ed25519_dalek::*;
 use failure::*;
+use hcid::HcidEncoding;
+use lazy_static::lazy_static;
 use wasm_bindgen::prelude::*;
 
 const ARGON2_ADDITIONAL_DATA: &[u8] = b"holo chaperone web user ed25519 key v1";
 
 fn into_js_error(err: impl Fail) -> JsValue {
     js_sys::Error::new(&err.to_string()).into()
+}
+
+lazy_static! {
+    pub static ref HCID_CODEC: hcid::HcidEncoding =
+        HcidEncoding::with_kind("hcs0").expect("Couldn't init hcs0 hcid codec.");
 }
 
 #[wasm_bindgen]
@@ -44,7 +51,7 @@ impl KeyManager {
 
         Ok(Self(Keypair {
             secret: secret_key,
-            public: public_key
+            public: public_key,
         }))
     }
 
@@ -58,5 +65,12 @@ impl KeyManager {
     pub fn verify(&self, message: &[u8], signature_bytes: &[u8]) -> Result<bool, JsValue> {
         let signature = Signature::from_bytes(signature_bytes).map_err(into_js_error)?;
         Ok(self.0.verify(message, &signature).is_ok())
+    }
+
+    #[wasm_bindgen(js_name = agentId)]
+    pub fn agent_id(&self) -> Result<String, JsValue> {
+        HCID_CODEC
+            .encode(&self.0.public.to_bytes())
+            .map_err(into_js_error)
     }
 }

@@ -1,13 +1,15 @@
 [package]
 name = "chaperone-key-manager"
-version = "0.0.2"
-authors = ["yegortimoshenko@transumption.com"]
+version = "0.0.3"
+authors = ["yegortimoshenko@transumption.com", "matthew@webheroes.ca"]
 edition = "2018"
 repository = "https://github.com/Holo-Host/chaperone-key-manager"
 
 [dependencies]
 ed25519-dalek = { version = "1.0.0-pre.2", features = ["nightly"] }
 failure = "0.1.6"
+hcid = "0.0.6"
+lazy_static = "1.2"
 js-sys = "0.3.30"
 wasm-bindgen = "0.2.51"
 wasm-bindgen-cli = "0.2.51"
