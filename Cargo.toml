@@ -1,6 +1,6 @@
 [package]
 name = "chaperone-key-manager"
-version = "0.0.3"
+version = "0.0.4"
 authors = ["yegortimoshenko@transumption.com", "matthew@webheroes.ca"]
 edition = "2018"
 repository = "https://github.com/Holo-Host/chaperone-key-manager"
