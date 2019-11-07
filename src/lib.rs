@@ -20,7 +20,6 @@ pub struct KeyManager(Keypair);
 
 #[wasm_bindgen]
 impl KeyManager {
-    // TODO: add hApp hash argument
     #[wasm_bindgen(js_name = deriveSeed)]
     pub fn derive_seed(
         dna_multihash: &str,
