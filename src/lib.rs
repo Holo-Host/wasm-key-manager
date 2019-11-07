@@ -1,8 +1,12 @@
 use ed25519_dalek::*;
 use failure::*;
-use hcid::HcidEncoding;
 use lazy_static::lazy_static;
 use wasm_bindgen::prelude::*;
+use hcid::HcidEncoding;
+
+// Use `wee_alloc` as the global allocator.
+#[global_allocator]
+static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 const ARGON2_ADDITIONAL_DATA: &[u8] = b"holo chaperone web user ed25519 key v1";
 
