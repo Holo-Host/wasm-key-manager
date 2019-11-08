@@ -1,5 +1,15 @@
 
-# Overview
+# Wasm Key Manager
+
+Rust/Wasm key management implementation that uses Ed25519 signing algorithm and Argon2 key
+derivation.  The private key remains in Wasm memory with no direct access for Javascript.
+
+![](https://img.shields.io/maintenance/last%20update%202019-11/2019?style=flat-square)
+![](https://img.shields.io/badge/dev@latest-0.0.4-orange?style=flat-square)
+
+## Release ![](https://img.shields.io/npm/v/@holo-host/wasm-key-manager/latest?style=flat-square)
+Release source - https://github.com/Holo-Host/chaperone/tree/master/key-manager/
+
 
 ## API Reference
 
@@ -53,4 +63,56 @@ module.exports = {
         libraryTarget: "window",
     },
 };
+```
+
+## Contributors
+
+**Development environment as of 2019/11**
+- Node.js `12`
+- Rust `1.38.0-nightly`
+
+**Project employs**
+- Wasm Pack (rust)
+- JSDoc
+
+**Setup**
+
+Nix shell will provide packages listed in [./default.nix](./default.nix) `nativeBuildInputs`
+```bash
+nix-shell ./shell.nix
+```
+
+### Build
+
+The source is written in Rust and the wasm is built with `wasm-pack`.
+
+```bash
+bash -c './build.sh'
+```
+or
+```bash
+make pkg
+```
+
+### Testing
+
+```bash
+make tests
+```
+
+#### Unit tests
+There are some unit tests written that test the basic usage.
+
+*Tests that need to be written*
+- Failure tests (edge cases)
+
+#### Integration tests
+TBD
+
+### Documentation
+
+**Requires** that `npm install` has been run in the parent directory.
+
+```bash
+make docs
 ```
