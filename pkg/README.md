@@ -1,10 +1,15 @@
 
 # Overview
 
+## API Reference
+
+[API Reference](https://holo-host.github.io/chaperone/key-manager/docs/KeyManager.html)
+
+
 ## Usage
 
 ```js
-const { KeyManager } = require('@holo-host/chaperone-key-manager');
+const { KeyManager } = require('@holo-host/wasm-key-manager');
 const crypto = require('crypto');
 
 const seed = crypto.randomBytes( 32 );
@@ -29,7 +34,7 @@ import("./index.js")
 
 ### `index.js`
 ```js
-const { KeyManager } = require("@holo-host/chaperone-key-manager");
+const { KeyManager } = require("@holo-host/wasm-key-manager");
 
 module.exports = {
     KeyManager,
