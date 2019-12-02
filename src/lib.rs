@@ -4,7 +4,7 @@ use lazy_static::lazy_static;
 use wasm_bindgen::prelude::*;
 use hcid::HcidEncoding;
 
-// Use `wee_alloc` as the global allocator.
+// wee_alloc shaves off ~4KB off WASM file size.
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
