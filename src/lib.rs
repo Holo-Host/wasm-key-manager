@@ -49,6 +49,8 @@ impl KeyManager {
 
     #[wasm_bindgen(constructor)]
     pub fn new(seed: &[u8]) -> Result<KeyManager, JsValue> {
+        console_error_panic_hook::set_once();
+
         let secret_key = SecretKey::from_bytes(seed).map_err(into_js_error)?;
         let public_key = PublicKey::from(&secret_key);
 

@@ -6,6 +6,7 @@ edition = "2018"
 repository = "https://github.com/Holo-Host/chaperone-key-manager"
 
 [dependencies]
+console_error_panic_hook = "0.1.6"
 ed25519-dalek = { version = "1.0.0-pre.2", features = ["nightly"] }
 failure = "0.1.6"
 hcid = "0.0.6"
