@@ -1,12 +1,12 @@
 # Real targets
 pkg/package.json:	Cargo.toml Cargo.lock src/lib.rs
-	nix-shell --run 'bash ./build.sh'
+	nix-shell --run 'bash build.sh'
 pkg/README.md:
 	ln ../README.md pkg/
 tests/node_modules:
 	cd tests; npm i
-docs/index.html:	src/jsdoc.js
-	npx jsdoc --verbose -c ./docs/.jsdoc.json --private --destination ./docs src/jsdoc.js
+docs/index.html:	pkg
+	npx jsdoc --verbose -c .jsdoc.json --private --destination docs pkg/wasm_key_manager.js
 
 
 .PHONY: pkg tests preview-package publish-package

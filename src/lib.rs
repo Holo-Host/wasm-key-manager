@@ -24,6 +24,16 @@ pub struct KeyManager(Keypair);
 
 #[wasm_bindgen]
 impl KeyManager {
+    /// @static
+    /// @async
+    /// @function deriveSeed
+    /// @memberof KeyManager
+    ///
+    /// @description Derive seed from email and password
+    ///
+    /// @example
+    /// const seed = KeyManger.deriveSeed( 'somebody@example.com', 'Pa55w0rd!' );
+    /// const keys = new KeyManger( seed );
     #[wasm_bindgen(js_name = deriveSeed)]
     pub fn derive_seed(
         dna_multihash: &str,
@@ -47,6 +57,7 @@ impl KeyManager {
         Ok(seed.to_vec())
     }
 
+    /// @description Create a Ed25519 key manager
     #[wasm_bindgen(constructor)]
     pub fn new(seed: &[u8]) -> Result<KeyManager, JsValue> {
         console_error_panic_hook::set_once();
@@ -60,22 +71,49 @@ impl KeyManager {
         }))
     }
 
+    /// @instance
+    /// @function agentId
+    /// @memberof KeyManager
+    ///
+    /// @description Get HCID (hcs0) encoded public key
+    ///
+    /// @example
+    /// const keys = new KeyManager();
+    /// let agent_id = keys.agentId();
+    #[wasm_bindgen(js_name = agentId)]
+    pub fn agent_id(&self) -> Result<String, JsValue> {
+        HCID_CODEC
+            .encode(&self.0.public.to_bytes())
+            .map_err(into_js_error)
+    }
+
+    /// @instance
+    /// @async
+    /// @function sign
+    /// @memberof KeyManager
+    ///
+    /// @description Sign a message using private key
+    ///
+    /// @example
+    /// let signature = await Keys.sign( message );
     #[wasm_bindgen]
     pub fn sign(&self, message: &[u8]) -> Vec<u8> {
         let signature = self.0.sign(message);
         signature.to_bytes()[..].into()
     }
 
+    /// @instance
+    /// @async
+    /// @function verify
+    /// @memberof KeyManager
+    ///
+    /// @description Verify a signed message against given public key
+    ///
+    /// @example
+    /// let genuine = await Keys.verify( signature, message, Keys.sign.public );
     #[wasm_bindgen]
     pub fn verify(&self, message: &[u8], signature_bytes: &[u8]) -> Result<bool, JsValue> {
         let signature = Signature::from_bytes(signature_bytes).map_err(into_js_error)?;
         Ok(self.0.verify(message, &signature).is_ok())
-    }
-
-    #[wasm_bindgen(js_name = agentId)]
-    pub fn agent_id(&self) -> Result<String, JsValue> {
-        HCID_CODEC
-            .encode(&self.0.public.to_bytes())
-            .map_err(into_js_error)
     }
 }
