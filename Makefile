@@ -5,7 +5,7 @@ pkg/README.md:
 	ln ../README.md pkg/
 tests/node_modules:
 	cd tests; npm i
-docs/index.html:	pkg
+docs/index.html:	pkg .jsdoc.json
 	npx jsdoc --verbose -c .jsdoc.json --private --destination docs pkg/wasm_key_manager.js
 
 
