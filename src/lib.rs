@@ -14,11 +14,6 @@ fn into_js_error(err: impl Fail) -> JsValue {
     js_sys::Error::new(&err.to_string()).into()
 }
 
-lazy_static! {
-    pub static ref HCID_CODEC: hcid::HcidEncoding =
-        HcidEncoding::with_kind("hcs0").expect("Couldn't init hcs0 hcid codec.");
-}
-
 #[wasm_bindgen]
 pub struct KeyManager(Keypair);
 
@@ -72,19 +67,16 @@ impl KeyManager {
     }
 
     /// @instance
-    /// @function agentId
     /// @memberof KeyManager
     ///
-    /// @description Get HCID (hcs0) encoded public key
+    /// @description Get public key bytes
     ///
     /// @example
     /// const keys = new KeyManager();
-    /// let agent_id = keys.agentId();
-    #[wasm_bindgen(js_name = agentId)]
-    pub fn agent_id(&self) -> Result<String, JsValue> {
-        HCID_CODEC
-            .encode(&self.0.public.to_bytes())
-            .map_err(into_js_error)
+    /// const publicKey = keys.publicKey();
+    #[wasm_bindgen(js_name = publicKey)]
+    pub fn public_key(&self) -> Vec<u8> {
+        self.0.public.to_bytes()[..].into()
     }
 
     /// @instance
@@ -116,4 +108,23 @@ impl KeyManager {
         let signature = Signature::from_bytes(signature_bytes).map_err(into_js_error)?;
         Ok(self.0.verify(message, &signature).is_ok())
     }
+}
+
+lazy_static! {
+    pub static ref HCS0_CODEC: hcid::HcidEncoding =
+        HcidEncoding::with_kind("hcs0").expect("Couldn't init hcs0 hcid codec.");
+}
+
+#[wasm_bindgen]
+pub fn from_hcs0(public_key_hcid: &str) -> Result<Vec<u8>, JsValue> {
+    HCS0_CODEC
+        .decode(&public_key_hcid)
+        .map_err(into_js_error)
+}
+
+#[wasm_bindgen]
+pub fn to_hcs0(public_key_bytes: &[u8]) -> Result<String, JsValue> {
+    HCS0_CODEC
+        .encode(&public_key_bytes)
+        .map_err(into_js_error)
 }
