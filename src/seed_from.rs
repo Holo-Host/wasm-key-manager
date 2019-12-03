@@ -21,6 +21,8 @@ pub fn seed_from(
     email: &str,
     password: &str,
 ) -> Fallible<Vec<u8>> {
+    console_error_panic_hook::set_once();
+
     // This allows to use email addresses shorter than 8 bytes.
     let salt = Sha512::digest(email.as_bytes());
     let mut seed = [0; SECRET_KEY_LENGTH];
