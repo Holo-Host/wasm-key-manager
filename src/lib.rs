@@ -19,14 +19,21 @@ pub struct KeyManager(Keypair);
 
 #[wasm_bindgen]
 impl KeyManager {
-    /// @description Derive seed from email and password
+    /// @description Derive seed from DNA SHA-256 digest bytes, email, and password
     ///
     /// @example
-    /// const seed = KeyManger.deriveSeed( 'somebody@example.com', 'Pa55w0rd!' );
-    /// const keys = new KeyManger( seed );
+    /// const dnaSha256 = new Uint8Array([
+    ///     66, 123, 133, 136, 133,   6, 247, 116,
+    ///      4,  59,  43, 206, 131, 168, 123,  44,
+    ///     54,  52,   3,  53, 134,  75, 137,  43,
+    ///     63,  26, 216, 191,  67, 117,  38, 142
+    /// ]);
+    /// const seed = KeyManger.deriveSeed( dnaSha256, 'example@holo.host', 'password' );
+    ///
+    /// console.log( new KeyManager( seed ));
     #[wasm_bindgen(js_name = deriveSeed)]
     pub fn derive_seed(
-        dna_multihash: &str,
+        dna_sha256: &[u8],
         email: &str,
         password: &str,
     ) -> Result<Vec<u8>, JsValue> {
@@ -40,7 +47,7 @@ impl KeyManager {
                 &mut seed,
                 password.as_bytes(),
                 &salt,
-                dna_multihash.as_bytes(),
+                dna_sha256,
                 ARGON2_ADDITIONAL_DATA,
             );
 

@@ -1,8 +1,14 @@
-
 const expect				= require('chai').expect;
 const crypto				= require('crypto');
 
-const { KeyManager }			= require('../../pkg/');
+const { KeyManager }			= require('../../pkg');
+
+const dnaSha256				= new Uint8Array([
+    66, 123, 133, 136, 133,   6, 247, 116,
+     4,  59,  43, 206, 131, 168, 123,  44,
+    54,  52,   3,  53, 134,  75, 137,  43,
+    63,  26, 216, 191,  67, 117,  38, 142
+]);
 
 describe("Key Manager", () => {
 
@@ -14,45 +20,44 @@ describe("Key Manager", () => {
     });
 
     it("should derive seed from input", async () => {
-	const known_seed		= new Uint8Array([
-	    45,  12, 221,  54, 152, 210,  92,  23,
-	    47,  44, 246, 126, 237, 194, 205, 129,
-	    200, 206,  41,  68, 122, 108, 233, 200,
-	    52, 133,  16,  47, 203, 102,  21, 201
+	const knownSeed			= new Uint8Array([
+            225, 186, 208,  19, 196,  26,  72,  30,
+             72,  91, 170, 129, 169, 229,  53, 112,
+            216, 149,   4, 192,   1, 114, 148, 173,
+             14,  68, 215,  72, 242, 209, 155, 196
 	]);
-	
-	const seed			= KeyManager.deriveSeed("some dna hash", "someone@example.com", "Passw0rd!");
 
-	expect( seed			).to.be.an("uint8array");
-	expect( seed			).to.deep.equal( known_seed );
+        const seed			= KeyManager.deriveSeed(dnaSha256, "example@holo.host", "password");
+
+        expect( seed			).to.be.an("uint8array");
+        expect( seed			).to.deep.equal( knownSeed );
     });
 
     it("should sign and verify using derived seed", async () => {
-	const known_signature		= new Uint8Array([
-	    40, 120, 215, 244,  19, 247,  36,  47, 242,   5, 137,
-	    113, 128,  51, 127, 173,  56,  75,  32,   0,  22, 183,
-	    251, 100,  98,  51,  31,  98,  74, 218,  22, 174, 183,
-	    41,  56, 194, 169,  63, 106, 105,  41, 240,  84, 113,
-	    68, 199, 110, 206, 135, 192,  99,  69,  28, 154, 211,
-	    11, 133,  82, 220,  45,  49, 243, 204,  14
+	const knownSignature		= new Uint8Array([
+            155, 142, 163,   4, 233, 104, 154,  74,  85, 194, 232,
+             87, 149, 144,  12, 129, 127,  90, 112, 105, 226, 241,
+             50, 190, 249,  36,  34,  86,  35, 226, 236, 131,  91,
+            156,  19,  86, 196, 124, 134, 133, 242, 152, 240,  65,
+            117,  50, 221,  13, 181,  42,  96,  42, 187,  57, 229,
+            130,  84,  85, 105, 122, 119,  20, 103,  14
 	]);
-	
-	const seed			= KeyManager.deriveSeed("some dna hash", "someone@example.com", "Passw0rd!");
-	const keys			= new KeyManager( seed );
-	const message			= "Hello World";
 
-	const signature			= keys.sign( message );
+        const seed			= KeyManager.deriveSeed(dnaSha256, "example@holo.host", "password");
+        const keys			= new KeyManager( seed );
+        const message			= "Hello, world!";
 
-	expect( signature		).to.be.an("uint8array");
-	expect( signature		).to.deep.equal( known_signature );
-	
-	const verified			= keys.verify( message, signature );
+        const signature			= keys.sign( message );
 
-	expect( verified		).to.be.true;
+        expect( signature		).to.be.an("uint8array");
+        expect( signature		).to.deep.equal( knownSignature );
 
-	const verifiedStatic		= KeyManager.verifyWithPublicKey( message, signature, keys.publicKey() )
+        const isGenuine			= keys.verify( message, signature );
 
-	expect( verifiedStatic		).to.be.true;
+        expect( isGenuine		).to.be.true;
+
+        const isGenuineStatic		= KeyManager.verifyWithPublicKey( message, signature, keys.publicKey() )
+
+        expect( isGenuineStatic		).to.be.true;
     });
-    
 });
