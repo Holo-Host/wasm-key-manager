@@ -15,7 +15,7 @@ impl KeyManager {
     ///
     /// new KeyManager( seed );
     #[wasm_bindgen(constructor)]
-    pub fn new(seed: &[u8]) -> Result<KeyManager, JsValue> {
+    pub fn new(seed: &[u8]) -> Fallible<KeyManager> {
         console_error_panic_hook::set_once();
 
         let secret_key = SecretKey::from_bytes(seed).map_err(into_js_error)?;
@@ -60,14 +60,14 @@ impl KeyManager {
     ///
     /// keys.verify( message, signature ) === true;
     #[wasm_bindgen]
-    pub fn verify(&self, message: &[u8], signature_bytes: &[u8]) -> Result<bool, JsValue> {
+    pub fn verify(&self, message: &[u8], signature_bytes: &[u8]) -> Fallible<bool> {
         let signature = Signature::from_bytes(signature_bytes).map_err(into_js_error)?;
         Ok(self.0.verify(message, &signature).is_ok())
     }
 
     /// @description Verify signed message with provided public key
     #[wasm_bindgen(js_name = verifyWithPublicKey)]
-    pub fn verify_with_public_key(message: &[u8], signature_bytes: &[u8], public_key_bytes: &[u8]) -> Result<bool, JsValue> {
+    pub fn verify_with_public_key(message: &[u8], signature_bytes: &[u8], public_key_bytes: &[u8]) -> Fallible<bool> {
         let public_key = PublicKey::from_bytes(public_key_bytes).map_err(into_js_error)?;
         let signature = Signature::from_bytes(signature_bytes).map_err(into_js_error)?;
         Ok(public_key.verify(message, &signature).is_ok())

@@ -20,7 +20,7 @@ pub fn seed_from(
     dna_sha256: &[u8],
     email: &str,
     password: &str,
-) -> Result<Vec<u8>, JsValue> {
+) -> Fallible<Vec<u8>> {
     // This allows to use email addresses shorter than 8 bytes.
     let salt = Sha512::digest(email.as_bytes());
     let mut seed = [0; SECRET_KEY_LENGTH];
