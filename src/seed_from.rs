@@ -13,9 +13,8 @@ const ARGON2_ADDITIONAL_DATA: &[u8] = b"holo chaperone web user ed25519 key v1";
 ///     54,  52,   3,  53, 134,  75, 137,  43,
 ///     63,  26, 216, 191,  67, 117,  38, 142
 /// ]);
-/// const seed = seedFrom( dnaSha256, "example@holo.host", "password" );
 ///
-/// console.log( new KeyManager( seed ));
+/// seedFrom( dnaSha256, "example@holo.host", "password" ); // Uint8Array [ ... ]
 #[wasm_bindgen(js_name = seedFrom)]
 pub fn seed_from(
     dna_sha256: &[u8],

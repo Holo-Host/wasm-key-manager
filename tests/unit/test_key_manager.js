@@ -11,7 +11,6 @@ const dnaSha256				= new Uint8Array([
 ]);
 
 describe("Key Manager", () => {
-
     it("should create KeyManager instance with random bytes", async () => {
 	const seed			= crypto.randomBytes( 32 );
 	const keys			= new KeyManager( seed );
