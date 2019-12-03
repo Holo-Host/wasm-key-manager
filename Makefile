@@ -1,33 +1,34 @@
-# Real targets
-pkg/package.json:	Cargo.toml Cargo.lock src/*.rs
+pkg/package.json: Cargo.toml Cargo.lock src/*.rs
 	nix-shell --run 'bash build.sh'
+
 pkg/README.md:
-	ln ../README.md pkg/
-tests/node_modules:
-	cd tests; npm i
-docs/index.html:	pkg .jsdoc.json
-	npx jsdoc --verbose -c .jsdoc.json --private --destination docs pkg/wasm_key_manager.js
+	ln ../README.md pkg
 
+pkg: pkg/package.json pkg/README.md
 
-.PHONY: pkg tests preview-package publish-package
-# Alias
-pkg:			pkg/package.json
-docs:			docs/index.html
+docs/index.html: .jsdoc.json pkg
+	npx jsdoc pkg/wasm_key_manager.js --configure .jsdoc.json --destination docs --verbose
 
-# Commands
-tests:			pkg tests/node_modules
-	cd tests; npm test
+docs: docs/index.html
 
-preview-package:	pkg pkg/README.md
+node_modules: package.json package-lock.json
+	npm install
+
+.PHONY: preview-package publish-docs publish-package test
+
+preview-package: pkg pkg/README.md
 	npm pack --dry-run ./pkg
 
-publish-package:	pkg pkg/README.md
+publish-package: pkg pkg/README.md
 	npm publish --access public ./pkg
 
-publish-docs:		pkg
+publish-docs: pkg
 	@echo "\nBuilding Key Manager docs"
 	make docs
 	ln -s docs v$$( cat ./pkg/package.json | jq -r .version )
 	@echo "\nAdding Key Manager docs..."
 	git add -f docs
 	git add v$$( cat ./pkg/package.json | jq -r .version )
+
+test: node_modules pkg
+	npm run test
