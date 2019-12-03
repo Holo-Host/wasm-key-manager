@@ -1,5 +1,5 @@
 # Real targets
-pkg/package.json:	Cargo.toml Cargo.lock src/lib.rs
+pkg/package.json:	Cargo.toml Cargo.lock src/*.rs
 	nix-shell --run 'bash build.sh'
 pkg/README.md:
 	ln ../README.md pkg/

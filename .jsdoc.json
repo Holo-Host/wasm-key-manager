@@ -2,7 +2,7 @@
     "plugins": ["plugins/markdown"],
     "templates": {
 	"referenceTitle": "Holo Hosting - Wasm Key Manager",
-	"disableSort": false,
+	"disableSort": true,
 	"resources": {
 	}
     },
