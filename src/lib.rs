@@ -47,6 +47,17 @@ impl KeyManager {
         Ok(seed.to_vec())
     }
 
+    /// @description Verify signed message with provided public key
+    ///
+    /// @example
+    /// let isGenuine = await keys.verifyWithPublicKey( message, signature, publicKey );
+    #[wasm_bindgen(js_name = verifyWithPublicKey)]
+    pub fn verify_with_public_key(message: &[u8], signature_bytes: &[u8], public_key_bytes: &[u8]) -> Result<bool, JsValue> {
+        let public_key = PublicKey::from_bytes(public_key_bytes).map_err(into_js_error)?;
+        let signature = Signature::from_bytes(signature_bytes).map_err(into_js_error)?;
+        Ok(public_key.verify(message, &signature).is_ok())
+    }
+
     /// @description Create an Ed25519 key manager out of seed
     /// @see KeyManager.deriveSeed
     #[wasm_bindgen(constructor)]

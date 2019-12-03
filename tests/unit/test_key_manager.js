@@ -10,7 +10,7 @@ describe("Key Manager", () => {
 	const seed			= crypto.randomBytes( 32 );
 	const keys			= new KeyManager( seed );
 
-	expect( keys.agentId()		).to.be.a("string");
+	expect( keys.publicKey()	).to.be.a("uint8array");
     });
 
     it("should derive seed from input", async () => {
@@ -47,8 +47,12 @@ describe("Key Manager", () => {
 	expect( signature		).to.deep.equal( known_signature );
 	
 	const verified			= keys.verify( message, signature );
-	
+
 	expect( verified		).to.be.true;
+
+	const verifiedStatic		= KeyManager.verifyWithPublicKey( message, signature, keys.publicKey() )
+
+	expect( verifiedStatic		).to.be.true;
     });
     
 });
