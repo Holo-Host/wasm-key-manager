@@ -11,15 +11,11 @@ lazy_static! {
 /// @ignore
 #[wasm_bindgen]
 pub fn from_hcs0(public_key_hcid: &str) -> Fallible<Vec<u8>> {
-    HCS0_CODEC
-        .decode(&public_key_hcid)
-        .map_err(into_js_error)
+    HCS0_CODEC.decode(&public_key_hcid).map_err(into_js_error)
 }
 
 /// @ignore
 #[wasm_bindgen]
 pub fn to_hcs0(public_key_bytes: &[u8]) -> Fallible<String> {
-    HCS0_CODEC
-        .encode(&public_key_bytes)
-        .map_err(into_js_error)
+    HCS0_CODEC.encode(&public_key_bytes).map_err(into_js_error)
 }

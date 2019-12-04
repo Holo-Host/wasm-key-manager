@@ -1,9 +1,9 @@
 [package]
-name = "chaperone-key-manager"
-version = "0.0.4"
+name = "wasm-key-manager"
+version = "0.0.5"
 authors = ["yegortimoshenko@transumption.com", "matthew@webheroes.ca"]
 edition = "2018"
-repository = "https://github.com/Holo-Host/chaperone-key-manager"
+repository = "https://github.com/Holo-Host/chaperone/tree/master/key-manager"
 
 [dependencies]
 console_error_panic_hook = "0.1.6"

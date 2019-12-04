@@ -1,12 +1,12 @@
 pkg/package.json: Cargo.toml Cargo.lock src/*.rs
-	nix-shell --run 'bash build.sh'
+	nix-shell --run 'cargo fmt; bash build.sh'
 
 pkg/README.md:
 	ln ../README.md pkg
 
 pkg: pkg/package.json pkg/README.md
 
-docs/index.html: .jsdoc.json pkg
+docs/index.html: .jsdoc.json pkg/package.json
 	npx jsdoc pkg/wasm_key_manager.js --configure .jsdoc.json --destination docs --verbose
 
 docs: docs/index.html

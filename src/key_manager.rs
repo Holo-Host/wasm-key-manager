@@ -8,10 +8,10 @@ pub struct KeyManager(Keypair);
 #[wasm_bindgen]
 impl KeyManager {
     /// @description Create an Ed25519 key manager out of seed
-    /// @see seedFrom
+    /// @see deriveSeedFrom
     /// @example
-    /// const dnaSha256 = new crypto.subtle.digest( "SHA-256", new Uint8Array( [] ));
-    /// const seed = seedFrom( dnaSha256, "example@holo.host", "password" );
+    /// const hha_id = new crypto.subtle.digest( "SHA-256", new Uint8Array( [] ));
+    /// const seed = deriveSeedFrom( hha_id, "example@holo.host", "password" );
     ///
     /// new KeyManager( seed );
     #[wasm_bindgen(constructor)]
@@ -67,7 +67,11 @@ impl KeyManager {
 
     /// @description Verify signed message with provided public key
     #[wasm_bindgen(js_name = verifyWithPublicKey)]
-    pub fn verify_with_public_key(message: &[u8], signature_bytes: &[u8], public_key_bytes: &[u8]) -> Fallible<bool> {
+    pub fn verify_with_public_key(
+        message: &[u8],
+        signature_bytes: &[u8],
+        public_key_bytes: &[u8],
+    ) -> Fallible<bool> {
         let public_key = PublicKey::from_bytes(public_key_bytes).map_err(into_js_error)?;
         let signature = Signature::from_bytes(signature_bytes).map_err(into_js_error)?;
         Ok(public_key.verify(message, &signature).is_ok())

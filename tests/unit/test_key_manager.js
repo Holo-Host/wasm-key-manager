@@ -1,9 +1,10 @@
 const expect				= require('chai').expect;
 const crypto				= require('crypto');
 
-const { KeyManager, seedFrom }		= require('../../pkg');
+const { KeyManager,
+	deriveSeedFrom }		= require('../../pkg');
 
-const dnaSha256				= new Uint8Array([
+const hha_id				= new Uint8Array([
     66, 123, 133, 136, 133,   6, 247, 116,
      4,  59,  43, 206, 131, 168, 123,  44,
     54,  52,   3,  53, 134,  75, 137,  43,
@@ -26,7 +27,7 @@ describe("Key Manager", () => {
              14,  68, 215,  72, 242, 209, 155, 196
 	]);
 
-        const seed			= seedFrom(dnaSha256, "example@holo.host", "password");
+        const seed			= deriveSeedFrom(hha_id, "example@holo.host", "password");
 
         expect( seed			).to.be.an("uint8array");
         expect( seed			).to.deep.equal( knownSeed );
@@ -42,7 +43,7 @@ describe("Key Manager", () => {
             130,  84,  85, 105, 122, 119,  20, 103,  14
 	]);
 
-        const seed			= seedFrom(dnaSha256, "example@holo.host", "password");
+        const seed			= deriveSeedFrom(hha_id, "example@holo.host", "password");
         const keys			= new KeyManager( seed );
         const message			= "Hello, world!";
 
