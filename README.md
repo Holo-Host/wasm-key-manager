@@ -78,5 +78,5 @@ module.exports = {
 
 ## Contributing
 
-- [master/../CONTRIBUTING.md](https://github.com/Holo-Host/chaperone/blob/master/key-manager/README.md)
+- [master/../CONTRIBUTING.md](https://github.com/Holo-Host/chaperone-key-manager/blob/master/README.md)
 - [./CONTRIBUTING.md](./CONTRIBUTING.md)
