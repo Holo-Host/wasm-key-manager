@@ -4,18 +4,21 @@ pkg/package.json: Cargo.toml Cargo.lock src/*.rs
 pkg/README.md:
 	ln ../README.md pkg
 
-pkg: pkg/package.json pkg/README.md
-
 docs/index.html: .jsdoc.json pkg/package.json
 	npx jsdoc pkg/wasm_key_manager.js --configure .jsdoc.json --destination docs --verbose
 
-docs: docs/index.html
-
 package-lock.json: package.json 
 	npm install
+	touch $@
 node_modules: package-lock.json
 
+
+pkg: pkg/package.json pkg/README.md
+docs: docs/index.html
+
+
 .PHONY: preview-package publish-docs publish-package test
+
 
 preview-package: pkg pkg/README.md
 	npm pack --dry-run ./pkg
