@@ -11,8 +11,9 @@ docs/index.html: .jsdoc.json pkg/package.json
 
 docs: docs/index.html
 
-node_modules: package.json package-lock.json
+package-lock.json: package.json 
 	npm install
+node_modules: package-lock.json
 
 .PHONY: preview-package publish-docs publish-package test
 

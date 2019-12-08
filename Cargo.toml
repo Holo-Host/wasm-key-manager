@@ -1,5 +1,6 @@
 [package]
 name = "wasm-key-manager"
+description = "Holochain-compatible key management for Holo web users"
 version = "0.0.5"
 authors = ["yegortimoshenko@transumption.com", "matthew@webheroes.ca"]
 edition = "2018"
