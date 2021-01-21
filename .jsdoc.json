@@ -1,0 +1,12 @@
+{
+    "plugins": ["plugins/markdown"],
+    "templates": {
+	"referenceTitle": "Holo Hosting - Wasm Key Manager",
+	"disableSort": true,
+	"resources": {
+	}
+    },
+    "opts": {
+	"template": "../node_modules/braintree-jsdoc-template"
+    }
+}

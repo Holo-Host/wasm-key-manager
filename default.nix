@@ -7,8 +7,8 @@ let
 in
 
 {
-  chaperone-key-manager = buildRustPackage rustPlatform rec {
-    name = "chaperone-key-manager";
+  wasm-key-manager = buildRustPackage rustPlatform rec {
+    name = "wasm-key-manager";
     src = gitignoreSource ./.;
     cargoDir = ".";
 

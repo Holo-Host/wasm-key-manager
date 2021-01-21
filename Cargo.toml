@@ -1,19 +1,19 @@
 [package]
-name = "chaperone-key-manager"
-version = "0.0.4"
+name = "wasm-key-manager"
+description = "Holochain-compatible key management for Holo web users"
+version = "1.0.0"
 authors = ["yegortimoshenko@transumption.com", "matthew@webheroes.ca"]
 edition = "2018"
 repository = "https://github.com/Holo-Host/chaperone-key-manager"
 
 [dependencies]
+console_error_panic_hook = "0.1.6"
 ed25519-dalek = { version = "1.0.0-pre.2", features = ["nightly"] }
 failure = "0.1.6"
-hcid = "0.0.6"
-lazy_static = "1.2"
 js-sys = "0.3.30"
 wasm-bindgen = "0.2.51"
 wasm-bindgen-cli = "0.2.51"
-wee_alloc = "=0.4.4"
+wee_alloc = "0.4.4"
 
 [dependencies.argon2min]
 git = "https://github.com/Holo-Host/argon2min"
