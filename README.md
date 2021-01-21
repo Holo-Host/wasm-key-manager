@@ -8,7 +8,7 @@ derivation.  The private key remains in Wasm memory with no direct access for Ja
 ![](https://img.shields.io/badge/dev@latest-0.0.5-orange?style=flat-square)
 
 ## Release ![](https://img.shields.io/npm/v/@holo-host/wasm-key-manager/latest?style=flat-square)
-Release source - https://github.com/Holo-Host/chaperone/tree/master/key-manager/
+Release source - https://github.com/Holo-Host/chaperone-key-manager/
 
 
 ## API Reference
