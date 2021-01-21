@@ -1421,7 +1421,7 @@ dependencies = [
 
 [[package]]
 name = "wasm-key-manager"
-version = "0.0.5"
+version = "1.0.0"
 dependencies = [
  "argon2min 0.3.0 (git+https://github.com/Holo-Host/argon2min?branch=2019-10-13-holo-config)",
  "console_error_panic_hook 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)",

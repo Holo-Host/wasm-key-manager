@@ -1,7 +1,7 @@
 [package]
 name = "wasm-key-manager"
 description = "Holochain-compatible key management for Holo web users"
-version = "0.0.5"
+version = "1.0.0"
 authors = ["yegortimoshenko@transumption.com", "matthew@webheroes.ca"]
 edition = "2018"
 repository = "https://github.com/Holo-Host/chaperone-key-manager"

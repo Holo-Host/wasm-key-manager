@@ -5,7 +5,7 @@ Rust/Wasm key management implementation that uses Ed25519 signing algorithm and 
 derivation.  The private key remains in Wasm memory with no direct access for Javascript.
 
 ![](https://img.shields.io/maintenance/last%20update%202019-12/2019?style=flat-square)
-![](https://img.shields.io/badge/dev@latest-0.0.5-orange?style=flat-square)
+![](https://img.shields.io/badge/dev@latest-1.0.0-orange?style=flat-square)
 
 ## Release ![](https://img.shields.io/npm/v/@holo-host/wasm-key-manager/latest?style=flat-square)
 Release source - https://github.com/Holo-Host/chaperone-key-manager/
