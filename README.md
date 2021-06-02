@@ -40,7 +40,7 @@ const signature = keys.sign( message );
 const verified = keys.verify( message, signature );
 
 const public_key = keys.publicKey();
-const verified = keys.verifyWithPublicKey( message, signature, public_key );
+const verified = KeyManager.verifyWithPublicKey( message, signature, public_key );
 ```
 
 ## Bundle for web
