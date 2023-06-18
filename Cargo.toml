@@ -1,10 +1,10 @@
 [package]
 name = "wasm-key-manager"
 description = "Holochain-compatible key management for Holo web users"
-version = "1.1.0"
+version = "1.1.1"
 authors = [ "joelulahanna@gmail.com", "yegortimoshenko@transumption.com", "matthew@webheroes.ca"]
 edition = "2021"
-repository = "https://github.com/Holo-Host/chaperone-key-manager"
+repository = "https://github.com/Holo-Host/wasm-key-manager"
 
 [dependencies]
 console_error_panic_hook = "0.1.7"
