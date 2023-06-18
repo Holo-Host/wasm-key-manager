@@ -1497,7 +1497,7 @@ dependencies = [
 
 [[package]]
 name = "wasm-key-manager"
-version = "1.0.0-dev.0"
+version = "1.1.0"
 dependencies = [
  "argon2min",
  "console_error_panic_hook",
